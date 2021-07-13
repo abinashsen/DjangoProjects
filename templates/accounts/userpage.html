@@ -1,0 +1,55 @@
+{% extends 'accounts/base.html' %}
+<html lang="en">
+    <head>
+        <title>User Page</title>
+    </head>
+    <body>
+        {% block content %}
+            {% include 'accounts/status.html' %}
+            <br>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h1 class="card-tile">{{ request.user|capfirst }}'s Orders</h1>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered bg-dark text-white text-center">
+                                <thead class="bg-success">
+                                    <tr>
+                                        <th>Customer Name</th>
+                                        <th>Product Name</th>
+                                        <th>Order Date</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for order in orders %}
+                                    <tr>
+                                        <td>{{ order.customer.first_name }}</td>
+                                        <td>{{ order.product.name }}</td>
+                                        <td>{{ order.created_date }}</td>
+                                        <td>{{ order.product.price }}</td>
+                                        <td>{{ order.status }}</td>
+                                        <td>
+                                            <a class="btn btn-success" href="{% url 'update_order' order.id %}">Update</a>
+                                            <a class="btn btn-danger" href="{% url 'delete_order' order.id %}">Delete</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        {% endblock %}
+    </body>
+</html>

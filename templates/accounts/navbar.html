@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+
+    <title>NavBar</title>
+</head>
+<body>
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+         <ul class="navbar-nav">
+              {% if request.user.is_staff %}
+                  <li class="nav-item active">
+                  <a class="navbar-brand" href="{% url 'home' %}">Dashboard </a>
+                  </li>
+                  <li class="nav-item active">
+                  <a class="navbar-brand" href="{% url 'products' %}">Products</a>
+                  </li>
+                  <li class="nav-item active">
+                  <a class="navbar-brand" href="{% url 'order' %}">Orders</a>
+                  </li>
+              {% else %}
+                  <li class="nav-item active">
+                  <a class="navbar-brand" href="{% url 'account_settings' %}">My Profile </a>
+                  </li>
+                  <li class="nav-item active">
+                  <a class="navbar-brand" href="{% url 'products' %}">Products</a>
+                  </li>
+                  <li class="nav-item active">
+                  <a class="navbar-brand" href="{% url 'order' %}">Orders</a>
+                  </li>
+              {% endif %}
+          </ul>
+  </div>
+    <span style="color: white; margin-right: 20px;">Welcome, {{ request.user|capfirst }} </span>
+    <a href="{% url 'logout' %}" style="color: white">LogOut</a>
+</nav>
+{% endblock %}
+</body>
+</html>
